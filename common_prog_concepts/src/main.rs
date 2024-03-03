@@ -3,6 +3,7 @@ use std::io::Write;
 
 mod variables;
 mod match_deconstructing;
+mod cli_command_processing;
 
 fn main() {
     menu();
@@ -40,6 +41,7 @@ fn menu() {
             1 => variables::variables_are_immutable(),
             2 => variables::variables_can_be_mutable(),
             3 => match_deconstructing::match_deconstructing_pointers_and_references(),
+            4 => cli_command_processing::cli_command_processing(),
             _ => {
                 println!("Please enter an example menu number.");
                 continue;
@@ -56,6 +58,8 @@ fn print_menu() {
     println!("{i}: Variables can be mutable");
     i += 1;
     println!("{i}: Match deconstructing pointers and references");
+    i += 1;
+    println!("{i}: cli command matching");
 
     println!("\nType a menu number between 1 and {i} (type 'exit<CR>' to exit the program)")
 }
