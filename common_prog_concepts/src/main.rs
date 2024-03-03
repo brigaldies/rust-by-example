@@ -4,14 +4,6 @@ use std::io::Write;
 mod variables;
 mod match_deconstructing;
 
-// enum CommandName {
-//     QUIT(String),
-//     EXIT(String),
-// }
-//
-// const QUIT: CommandName = CommandName::QUIT(String::from("quit"));
-// const EXIT: CommandName = CommandName::QUIT(String::from("exit"));
-
 fn main() {
     menu();
 }
@@ -28,21 +20,23 @@ fn menu() {
 
         let selection_cleaned = selection.trim().to_lowercase();
 
-        let selection = match selection_cleaned.as_str() {
-            "quit" => break,
-            "exit" => break,
+        match selection_cleaned.as_str() {
+            "quit" | "exit" => {
+                println!("Thank you. Exiting...");
+                break;
+            }
             _ => {}
         };
 
-        let selection: u32 = match selection_cleaned.parse() {
+        let selected_menu_number: u32 = match selection_cleaned.parse() {
             Ok(num) => num,
             Err(_) => {
-                println!("Please enter a number");
+                println!("Please enter a valid number from the menu.");
                 continue;
             }
         };
 
-        match selection {
+        match selected_menu_number {
             1 => variables::variables_are_immutable(),
             2 => variables::variables_can_be_mutable(),
             3 => match_deconstructing::match_deconstructing_pointers_and_references(),
@@ -63,5 +57,5 @@ fn print_menu() {
     i += 1;
     println!("{i}: Match deconstructing pointers and references");
 
-    println!("\nType a menu number between 1 and {i}")
+    println!("\nType a menu number between 1 and {i} (type 'exit<CR>' to exit the program)")
 }
